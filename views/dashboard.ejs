@@ -1,0 +1,40 @@
+<%- include('dashboard_parts/header'); -%>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Viviendas Censadas</h1>
+  </div>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card  text-center">
+          <div class="card-body">
+            <h5 class="card-title">Hoy</h5>
+            <p class="card-text">Cantidad de viviendas censadas hoy</p>
+            <h2><%= registroDia %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card  text-center">
+          <div class="card-body">
+            <h5 class="card-title">Esta semana</h5>
+            <p class="card-text">Cantidad de viviendas censadas esta semana</p>
+            <h2><%= registrosSemana %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card  text-center">
+          <div class="card-body">
+            <h5 class="card-title">Total</h5>
+            <p class="card-text">Cantidad total de viviendas censadas</p>
+            <h2><%= total %></h2>
+            <!-- Gráfico aquí -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('dashboard_parts/footer'); -%>

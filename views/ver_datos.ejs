@@ -1,0 +1,120 @@
+<%- include('dashboard_parts/header'); -%>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Ver Datos</h1>
+</div>
+<div class="container ">
+  
+  <div id="div_famillias" class="visible-element">
+    <div class="card">
+      <div class="card-body" id="">
+        <h4 class="card-title">Seleccione una comunidad </h4>
+        <div class="form-group">
+          <select class="form-control" id="selectOption">
+            <% comunidades.forEach(comunidad => { %>
+              <option value="<%= comunidad.id %>"><%= comunidad.nombre %></option>
+            <% }); %>
+          </select>
+        </div>
+        <br>
+        <button class="btn btn-primary" onclick="enviarFormulario()">Ver</button>
+      </div>
+    </div> 
+    <br>
+  
+    <div class="card">
+      <div class="card-body" id="">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h4 class="h4">Familias</h4>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Fecha registro</th>
+              <th>No Vivienda</th>
+              <th>Miembros Familia</th>
+              <th>Jefe Familia</th>
+              <th>ocupacion</th>
+              <th>Escolaridad</th>
+  
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table> 
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <div id="div_detalle_Familia" class="hidden-element">
+    <button class="btn btn-primary" onclick="regresar()">Regresar</button>
+    <br>
+    <br>
+    <div class="card">
+      <div class="card-body" id="">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h4 class="h4">Miembros Familia Seleccionada</h4>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Sexo</th>
+              <th>Fecha Nacimiento</th>
+              <th>Ocupacion</th>
+              <th>Sabe Leer</th>
+              <th>Escolaridad</th>
+            </tr>
+          </thead>   
+          <tbody id="tableMiembros">
+          </tbody>   
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <div class="card-body" id="">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h4 class="h4">Zoonosis</h4>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Tipo Mascota</th>
+              <th>NO. Mascotas</th>
+              <th>Ubicacion</th>
+            </tr>
+          </thead>   
+          <tbody id="tableMascota">
+          </tbody>   
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="card" >
+          
+          <div class="card-body" id="cb_detalles_vivienda">
+            <h3 class="card-title">Detalles de la vivienda</h3>
+           
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="card">
+            
+            <div class="card-body" id="cb_gestion_ambiental">
+              <h3 class="card-title">Gestion ambiental</h3>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    <br>
+    </div>
+  </div>
+    
+</div>
+<script src="/js/datos.js"></script>
+<%- include('dashboard_parts/footer'); -%>

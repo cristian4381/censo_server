@@ -1,0 +1,21 @@
+# Archivos generados por Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# Archivos generados por editor de código (pueden variar según el editor)
+.vscode/
+.idea/
+
+# Archivo de configuración de entorno
+
+
+# Otros archivos y carpetas generados
+coverage/
+dist/
+build/
+*.log
+*.swp
+.DS_Store
+Thumbs.db

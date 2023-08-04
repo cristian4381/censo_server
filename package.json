@@ -1,0 +1,31 @@
+{
+  "name": "chat_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.3",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0",
+    "mysql2": "^3.4.3",
+    "pm2": "^5.3.0",
+    "sequelize": "^6.32.1",
+    "socket.io": "^4.5.4",
+    "sweetalert2": "^11.7.12",
+    "uuid": "^9.0.0"
+  }
+}
