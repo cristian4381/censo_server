@@ -6,7 +6,7 @@ const { Router} = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-const { crear,getInformacion } = require('../controllers/censo');
+const { crear,getInformacion, sicronizarBoletas } = require('../controllers/censo');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 const router = Router();
@@ -19,6 +19,10 @@ router.post('/new',[
 
     // validarCampos
 ],crear);
+
+router.post('/sicronizar',[
+
+],sicronizarBoletas);
 
 router.get('/informacion',validarJWT,getInformacion);
 

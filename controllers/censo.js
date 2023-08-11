@@ -299,7 +299,203 @@ const getInformacion = async (req, res = response) => {
   }
 };
 
+const sicronizarBoletas= async (req, res = response) => {
+  
+
+  const transaction = await sequelize.transaction();
+  const jsonData = req.body;
+  try {
+    console.log(jsonData);
+    for (const boleta of jsonData.boletas) {
+      await sincronizar(boleta);
+    }
+
+    await transaction.commit();
+    res.json({
+      ok: true,
+      msg: "Datos Guardados!!!",
+    });
+  } catch (error) {
+    await transaction.rollback();
+    console.error("Error al insertar los datos:", error);
+    return res.status(400).json({
+      ok: false,
+      msg: "Error al insertar los datos",
+    });
+  }
+
+  
+}
+
+const sincronizar = async(boleta) =>{
+  const transaction = await sequelize.transaction();
+  const jsonData = boleta;
+  try {
+    console.log(jsonData);
+
+    const vivienda = await Vivienda.create(jsonData.vivienda, {
+      transaction,
+    });
+  
+    const  ocupacion = jsonData.jefe_familia.ocupacion == '' ? 'No aplica' : jsonData.jefe_familia.ocupacion;
+    const sabe_leer = jsonData.jefe_familia.sabe_leer== '' ? 'No aplica' : jsonData.jefe_familia.sabe_leer;
+  
+    // Insertar la persona (jefe de familia)
+    const jefeFamilia = await Persona.create(
+      {
+        nombre: jsonData.jefe_familia.nombre,
+        sexo: jsonData.jefe_familia.sexo,
+        fecha_nacimiento: jsonData.jefe_familia.fecha_nacimiento,
+        ocupacion: ocupacion,
+        sabe_leer: sabe_leer,
+        escolaridad: jsonData.jefe_familia.escolaridad
+      },
+      {
+        transaction
+      }
+    );
+    
+    //verificar si el jefe_Familia esta embarazada
+    if(JSON.stringify(jsonData.jefe_familia.embarazada) != '{}'){
+      await Embarazada.create(
+        {
+          persona: jefeFamilia.id,
+          meses_gestacion: jsonData.jefe_familia.embarazada.meses_gestacion,
+          lleva_control: jsonData.jefe_familia.embarazada.lleva_control,
+          lugar_control: jsonData.jefe_familia.embarazada.lugar_control,
+          telefono: jsonData.jefe_familia.embarazada.telefono,
+        },
+        { transaction }
+      );
+    }
+    const jefeFamiliaId = jefeFamilia.id;
+  
+    await JefeFamilia.create(
+      {
+        persona: jefeFamilia.id,
+        estado_civil: jsonData.detalle_jefe_familia.estado_civil,
+        religion: jsonData.detalle_jefe_familia.religion,
+        procedencia: jsonData.detalle_jefe_familia.procedencia
+      },
+      { 
+        transaction 
+      }
+    );
+  
+    
+  
+    // Insertar la familia
+  
+    const familia = await Familia.create(
+      {
+        no_familia: jsonData.no_familia,
+        comunidad: jsonData.comunidad,
+        vivienda: vivienda.id,
+        jefe_familia: jefeFamiliaId,
+      },
+      { transaction }
+    );
+  
+    //incertando al jefe de familia en los detalles de la familia
+    await DetalleFamilia.create(
+      {
+        familia: familia.id,
+        miembro: jefeFamilia.id,
+      },
+      { transaction }
+    );
+  
+    // Insertar los detalles de la familia
+    for (const detalle of jsonData.familia) {
+      const  _ocupacion = detalle.ocupacion == '' ? 'No aplica' : detalle.ocupacion;
+      const _sabe_leer = detalle.sabe_leer== '' ? 'No aplica' : detalle.sabe_leer;
+      console.log(_ocupacion);
+      console.log(_sabe_leer);
+      const miembro = await Persona.create(
+        {
+          nombre: detalle.nombre,
+          sexo: detalle.sexo,
+          fecha_nacimiento: detalle.fecha_nacimiento,
+          ocupacion: _ocupacion,
+          sabe_leer: _sabe_leer,
+          escolaridad: detalle.escolaridad
+        },
+        {
+          transaction
+        }
+      );
+      if(JSON.stringify(detalle.embarazada) != '{}'){
+        console.log(detalle.embarazada);
+        await Embarazada.create(
+          {
+            persona: miembro.id,
+            tiempo_gestacion: detalle.embarazada.tiempo_gestacion,
+            lleva_control: detalle.embarazada.lleva_control,
+            lugar_control: detalle.embarazada.lugar_control,
+            telefono: detalle.embarazada.telefono,
+          },
+          { transaction }
+        );
+      }
+      await DetalleFamilia.create(
+        {
+          familia: familia.id,
+          miembro: miembro.id,
+        },
+        { transaction }
+      );
+    }
+  
+    for (const mascota of jsonData.mascotas) {
+  
+      await Mascota.create(
+        {
+          familia: familia.id,
+          tipo_mascota: mascota.tipo_mascota,
+          ubicacion: mascota.ubicacion,
+          cantidad: mascota.cantidad,
+        },
+        { transaction }
+      );
+  
+    }
+  
+    for (const establecimientos of jsonData.establecimientos_publicos) {
+      await EstablecimientosPublicos.create(
+        {
+          familia: familia.id,
+          tipo: establecimientos.tipo,
+        },
+        { transaction }
+      );
+    }
+  
+    // Insertar la gestión ambiental
+    const gestionAmbiental = await GestionAmbiental.create(
+      jsonData.gestion_ambiental,
+      { transaction }
+    );
+  
+    // Insertar el censo
+    const censo = await Censo.create(
+      {
+        familia: familia.id,
+        comunidad: jsonData.comunidad,
+        gestion_ambiental: gestionAmbiental.id,
+        registro: jsonData.usuario,
+        fecha_registro: new Date(),
+      },
+      { transaction }
+    );
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    console.error("Error al insertar los datos:", error);
+  }
+}
+
 module.exports = {
   crear,
   getInformacion,
+  sicronizarBoletas
 };
