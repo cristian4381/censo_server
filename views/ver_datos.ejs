@@ -1,15 +1,15 @@
 <%- include('dashboard_parts/header'); -%>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom text-light">
   <h1 class="h2">Ver Datos</h1>
 </div>
 <div class="container ">
   
   <div id="div_famillias" class="visible-element">
-    <div class="card">
+    <div class="card rounded-4 bg-dark text-light">
       <div class="card-body" id="">
         <h4 class="card-title">Seleccione una comunidad </h4>
         <div class="form-group">
-          <select class="form-control" id="selectOption">
+          <select class="form-control bg-dark text-light" id="selectOption">
             <% comunidades.forEach(comunidad => { %>
               <option value="<%= comunidad.id %>"><%= comunidad.nombre %></option>
             <% }); %>
@@ -21,13 +21,13 @@
     </div> 
     <br>
   
-    <div class="card">
+    <div class="card rounded-4 bg-dark text-light">
       <div class="card-body" id="">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h4 class="h4">Familias</h4>
         </div>
-        <table class="table table-striped table-bordered">
-          <thead>
+        <table class="table table-striped table-bordered table-dark">
+          <thead class="thead-dark">
             <tr>
               <th>Fecha registro</th>
               <th>No Vivienda</th>
@@ -50,12 +50,12 @@
     <button class="btn btn-primary" onclick="regresar()">Regresar</button>
     <br>
     <br>
-    <div class="card">
+    <div class="card rounded-4 bg-dark text-light">
       <div class="card-body" id="">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h4 class="h4">Miembros Familia Seleccionada</h4>
         </div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-dark">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -72,12 +72,12 @@
       </div>
     </div>
     <br>
-    <div class="card">
-      <div class="card-body" id="">
+    <div class="card rounded-4 bg-dark text-light">
+      <div class="card-body " id="">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h4 class="h4">Zoonosis</h4>
         </div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-dark">
           <thead>
             <tr>
               <th>Tipo Mascota</th>
@@ -93,7 +93,7 @@
     <br>
     <div class="row">
       <div class="col-lg-6 col-md-6">
-        <div class="card" >
+        <div class="card rounded-4 bg-dark text-light">
           
           <div class="card-body" id="cb_detalles_vivienda">
             <h3 class="card-title">Detalles de la vivienda</h3>
@@ -102,7 +102,7 @@
         </div>
       </div>
         <div class="col-lg-6 col-md-6">
-          <div class="card">
+          <div class="card rounded-4 bg-dark text-light">
             
             <div class="card-body" id="cb_gestion_ambiental">
               <h3 class="card-title">Gestion ambiental</h3>

@@ -9,7 +9,7 @@ yarn.lock
 .idea/
 
 # Archivo de configuración de entorno
-
+database/
 
 # Otros archivos y carpetas generados
 coverage/

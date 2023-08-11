@@ -139,6 +139,8 @@ async function enviarFormulario() {
 
       const listItem = document.createElement("li");
       listItem.classList.add("list-group-item");
+      listItem.classList.add("bg-dark")
+      listItem.classList.add("text-light")
 
       let value = data[key];
       if (typeof value === "string") {

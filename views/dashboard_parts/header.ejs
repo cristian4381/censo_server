@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Inicio de sesión</title>
+  <title>C&A</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+  <link rel="icon" href="/logo.png" type="image/png">
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/08348ab59f.js" crossorigin="anonymous"></script>
   <style>
     .visible-element {
       visibility: visible;
@@ -17,63 +18,66 @@
       visibility: hidden;
       display: none;
     }
+    img.respon{
+      height: 30%;
+      width:  30%;
+    }
   </style>
 </head>
 <body >
-  <div class="container-fluid d-flex flex-column min-vh-100" >
-    <div class="row flex-grow-1">
-      <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary ">
-        <div class="offcanvas-lg offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+  <div class="container-fluid d-flex flex-column min-vh-100 bg-secondary" >
+    <div class="row flex-grow-1 ">
+      <div class="border border-end border-secondary col-md-3 col-lg-2 p-0 bg-dark text-light">
+        <div class="offcanvas-lg offcanvas-end bg-dark text-light" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-            <div class="container">
-              <h3>Menu</h3>
+            <div class="container ">
+              <h3 class="text-light">Menú</h3>
             </div>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" 
-                aria-current="page" 
-                href="/">
-                  Home
-                </a>
+                    <a class="nav-link d-flex align-items-center gap-2 active text-light" aria-current="page" href="/">
+                      <i class="fas fa-home"></i>
+                      Home
+                    </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" 
-                aria-current="page" 
-                href="ver_datos">
+                
+                <a class="nav-link d-flex align-items-center gap-2 active text-light" aria-current="page" href="ver_datos">
+                  <i class="fas fa-search"></i>
                   Ver datos
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" 
-                href="buscar_comunidad">
+              <!-- <li class="nav-item ">
+                
+                <a class="nav-link d-flex align-items-center gap-2 text-light" href="buscar_comunidad">
                   Buscar por comunidad
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" 
+                <a class="nav-link d-flex align-items-center gap-2 text-light" 
                 href="buscar_familia">
                   Buscar por familia
                 </a>
-              </li>
+              </li> -->
             </ul>
-  
+      
             <hr class="my-3">
-  
+      
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
                 <div class="col-md-12">
                   <div class="card">
-                    <a class="nav-link d-flex align-items-center gap-2" href="logout">
-                      cerrar sesion
+                    <a class="nav-link d-flex align-items-center gap-2 text-light bg-primary" href="logout">
+                      Cerrar sesión
+                      <i class="fas fa-sign-out-alt"></i>
                     </a>
                   </div>
                 </div>
-                
-                
               </li>
             </ul>
           </div>
         </div>
       </div>
+      
       
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
