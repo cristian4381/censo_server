@@ -6,7 +6,7 @@ async function enviarFormulario() {
       id_cuminidad : option
     };
 
-    console.log(option);
+
     try{
 
       const response = await fetch("/ver_familas",{
@@ -19,7 +19,7 @@ async function enviarFormulario() {
 
       const responseData = await response.json();
       const tableBody = document.getElementById('tableBody');
-      console.log(responseData);
+
       tableBody.innerHTML = '';
 
       responseData.forEach(familia => {
@@ -45,7 +45,7 @@ async function enviarFormulario() {
 
 
   async function verDetalle(idFamilia) {
-    console.log('id familia '+idFamilia);
+
     const data = {
       id : idFamilia
     };
@@ -69,7 +69,7 @@ async function enviarFormulario() {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+
 
       const tableBody = document.getElementById('tableMiembros');
       tableBody.innerHTML = '';
