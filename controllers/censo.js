@@ -459,6 +459,16 @@ const sincronizar = async(boleta) =>{
       );
     }
   
+    if(JSON.stringify(jsonData.ubicacion) != '{}'){
+      await Ubicacion.create(
+        {
+          familia: familia.id,
+          longitud: jsonData.ubicacion.longitud,
+          latitud: jsonData.ubicacion.latitud,
+        },
+        {transaction}
+      );
+    }
     // Insertar la gestión ambiental
     const gestionAmbiental = await GestionAmbiental.create(
       jsonData.gestion_ambiental,
