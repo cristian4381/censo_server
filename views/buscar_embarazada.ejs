@@ -1,0 +1,55 @@
+<%- include('dashboard_parts/header'); -%>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom text-light">
+  <h1 class="h2">Ver Datos</h1>
+</div>
+<div class="container ">
+  
+  <div id="div_famillias" class="visible-element">
+    <div class="card rounded-4 bg-dark text-light">
+      <div class="card-body" id="">
+        <h4 class="card-title">Seleccione una comunidad </h4>
+        <div class="form-group">
+          <select class="form-control bg-dark text-light" id="selectOption">
+            <% comunidades.forEach(comunidad => { %>
+              <option value="<%= comunidad.id %>"><%= comunidad.nombre %></option>
+            <% }); %>
+          </select>
+        </div>
+        <br>
+        <button class="btn btn-primary" onclick="buscarIformacion()">Ver</button>
+      </div>
+    </div> 
+    <br>
+  
+    <div class="card rounded-4 bg-dark text-light">
+      <div class="card-body" id="">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h4 class="h4">Gestacion</h4>
+          <button type="button" 
+          class="btn btn-success" id="bt_excel"> <i class="fas fa-file-excel"></i>    Excel </button>
+        </div>
+        <table class="table table-striped table-bordered table-dark">
+          <thead class="thead-dark">
+            <tr>
+              <th>NO. Familia</th>
+              <th>Nombre</th>
+              <th>Tiempo gestacion</th>
+              <th>Lleva control</th>
+              <th>Lugar control</th>
+              <th>Telefono</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table> 
+      </div>
+    </div>
+    <br>
+  </div>
+
+
+    
+</div>
+</div>
+<script src="/js/datosGestacion.js"></script>
+<%- include('dashboard_parts/footer'); -%>
