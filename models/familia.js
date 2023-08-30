@@ -45,6 +45,7 @@ const Familia = sequelize.define("familia",{
 );
 
 Familia.hasMany(DetalleFamilia,{as : 'DetalleFamilia', foreignKey:'Familia'});
+DetalleFamilia.belongsTo(Familia,{as: 'detalleF', foreignKey: 'familia'})
 Familia.hasOne(Comunidad,{as : 'Comunidad', foreignKey:'id'});
 Familia.belongsTo(Persona,{as : 'Persona', foreignKey: 'jefe_familia'});
 Familia.belongsTo(Vivienda,{as : 'Vivienda', foreignKey:'vivienda'});

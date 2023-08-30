@@ -28,6 +28,7 @@ const DisposicionAguasReciduales = require("../models/disposicion_aguas_recidual
 const DisposicionDesechosSolidos = require("../models/disposicion_desechos_solidos");
 const Mascotas = require("../models/mascota");
 const TipoMascota = require("../models/tipo_mascota");
+const Embarazada = require("../models/embarazada");
 
 
 const verDatos = async (req, res) => {
@@ -41,12 +42,60 @@ const verDatos = async (req, res) => {
   res.render("ver_datos",{ comunidades});
 };
 
-const buscarComunidad = async (req, res) => {
+const ver_embarzadas = async (req, res) => {
   if (!req.session.loggedin) {
     return res.redirect('/')
   }
-  res.render("buscar_comunidad");
+  const comunidades = await Comunidad.findAll();
+
+  res.render("buscar_embarazada",{ comunidades});
 };
+
+const buscarEmabarazadas = async (req, res) => {
+  const noComunidad = req.query.comunidad;
+  console.log("NO. comunidad: "+noComunidad);
+
+  try {
+    const result = await Embarazada.findAll({
+      include: [
+        {
+          model: Persona,
+          as: 'PersonaE',
+          required: true,
+          include: [
+            {
+              model: DetalleFamilia,
+              as: 'detalle',
+              attributes: ['familia'],
+              include: [
+                {
+                  model: Familia,
+                  as: 'detalleF',
+                  attributes: ['no_familia'],
+                  where: {
+                    comunidad: noComunidad,
+                  },
+                  required: true,
+                },
+              ],
+              required: true,
+            },
+          ]
+        }
+      ]
+    });
+  
+    console.log(result);
+  
+    res.json(result);
+  } catch (error) {
+    res.json({
+      ok: 'false'
+    })
+  }
+
+}
+
 const buscarFamilia = async (req, res) => {
   if (!req.session.loggedin) {
     return res.redirect('/')
@@ -296,7 +345,8 @@ const buscarFamilias = async (id) => {
 
 module.exports = {
   verDatos,
-  buscarComunidad,
+  ver_embarzadas,
+  buscarEmabarazadas,
   buscarFamilia,
   verFamilia,
   verDatosFamilia

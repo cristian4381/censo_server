@@ -31,5 +31,7 @@ const Embarazada = sequelize.define('embarazada', {
   freezeTableName: true,
   timestamps: false
 });
-
+// DetalleFamilia.hasMany(Persona, { as: "Miembro" , foreignKey: "id"});
+//persona.hasMany(Embarazada, { as: "Embarazada" , foreignKey: "persona"});
+Embarazada.belongsTo(persona, { as: "PersonaE" , foreignKey: "persona"});
 module.exports = Embarazada;

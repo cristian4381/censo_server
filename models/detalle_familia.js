@@ -30,5 +30,6 @@ const DetalleFamilia = sequelize.define('detalle_familia', {
 });
 
 DetalleFamilia.hasMany(Persona, { as: "Miembro" , foreignKey: "id"});
+Persona.hasOne(DetalleFamilia,{as: 'detalle', foreignKey: 'miembro'});
 module.exports = DetalleFamilia;
 
