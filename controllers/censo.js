@@ -32,6 +32,7 @@ const Tenencia = require("../models/tenencia");
 const EstadoCivil = require("../models/estado_civil");
 const Religion = require("../models/religion");
 const Procedencia = require("../models/procedencia");
+const Ubicacion = require("../models/ubicacion");
 
 const crear = async (req, res = response) => {
   //const censo = new Censo(res.body);
@@ -179,21 +180,18 @@ const crear = async (req, res = response) => {
       );
 
     }
-
     
-
-    /*if (jsonData.embarazada) {
-      await Embarazada.create(
+    if(JSON.stringify(jsonData.ubicacion) != '{}'){
+      await Ubicacion.create(
         {
           familia: familia.id,
-          meses_gestacion: jsonData.embarazada.meses_gestacion,
-          lleva_control: jsonData.embarazada.lleva_control,
-          lugar_control: jsonData.embarazada.lugar_control,
-          telefono: jsonData.embarazada.telefono,
+          longitud: jsonData.ubicacion.longitud,
+          latitud: jsonData.ubicacion.latitud,
         },
-        { transaction }
+        {transaction}
       );
-    }*/
+    }
+
     for (const establecimientos of jsonData.establecimientos_publicos) {
       await EstablecimientosPublicos.create(
         {
@@ -203,15 +201,6 @@ const crear = async (req, res = response) => {
         { transaction }
       );
     }
-    /*if (jsonData.establecimientos_publicos) {
-      await EstablecimientosPublicos.create(
-        {
-          familia: familia.id,
-          tipo: jsonData.establecimientos_publicos.tipo,
-        },
-        { transaction }
-      );
-    }*/
 
     // Insertar la gestión ambiental
     const gestionAmbiental = await GestionAmbiental.create(
