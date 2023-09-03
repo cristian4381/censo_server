@@ -7,6 +7,12 @@ const { Op } = require('sequelize');
 
 const index = async (req, res)=>{
     if (req.session.loggedin) {
+		const today = new Date(); // Obtiene la fecha actual
+		today.setHours(0, 0, 0, 0); // Establece la hora a las 00:00:00
+
+		const tomorrow = new Date(today);
+		tomorrow.setDate(tomorrow.getDate() + 1); // Añade un día para obtener el final del día actual (23:59:59)
+
 		const registrosSemana = await Censo.count({
 			where: {
 			  fecha_registro: {
@@ -19,10 +25,13 @@ const index = async (req, res)=>{
 		});
 		const registroDia = await Censo.count({
 			where: {
-			  fecha_registro: sequelize.fn('CURDATE')
+			  fecha_registro: {
+				[Op.gte]: today, // Mayor o igual que la fecha a las 00:00:00 del día actual
+				[Op.lt]: tomorrow, // Menor que el final del día actual (23:59:59)
+			  },
 			}
 		});
-
+		console.log(today);
 		const total = await Censo.count();
         // Output username
         res.render("dashboard",{registrosSemana,registroDia,total});
