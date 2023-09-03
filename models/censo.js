@@ -4,6 +4,7 @@ const Familia = require('./familia');
 const Comunidad = require('./comunidad');
 const GestionAmbiental = require('./gestion_ambiental');
 const Usuario = require('./usuario');
+const Sector = require('./sector');
 
 const Censo = sequelize.define('censo', {
   id: {
@@ -22,6 +23,13 @@ const Censo = sequelize.define('censo', {
     type: Sequelize.INTEGER,
     references: {
       model: Comunidad,
+      key: 'id'
+    }
+  },
+  sector: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Sector,
       key: 'id'
     }
   },

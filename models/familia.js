@@ -5,6 +5,7 @@ const Comunidad = require("./comunidad");
 const Persona = require("./persona");
 const Vivienda = require("./vivienda");
 const DetalleFamilia = require("./detalle_familia");
+const Sector = require("./sector");
 
 
 const Familia = sequelize.define("familia",{
@@ -20,6 +21,13 @@ const Familia = sequelize.define("familia",{
       type: Sequelize.INTEGER,
       references: {
         model: Comunidad,
+        key: "id",
+      },
+    },
+    sector: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: Sector,
         key: "id",
       },
     },

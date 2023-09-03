@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database/config_mysql');
+const Sector = require('./sector');
 
 const Comunidad = sequelize.define('comunidad', {
   id: {
@@ -15,5 +16,7 @@ const Comunidad = sequelize.define('comunidad', {
   freezeTableName: true,
   timestamps: false
 });
+
+Comunidad.hasMany(Sector,{as : 'Sector',foreignKey:'comunidad'});
 
 module.exports = Comunidad;
