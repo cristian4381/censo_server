@@ -33,6 +33,7 @@ const EstadoCivil = require("../models/estado_civil");
 const Religion = require("../models/religion");
 const Procedencia = require("../models/procedencia");
 const Ubicacion = require("../models/ubicacion");
+const Sector = require("../models/sector");
 
 const crear = async (req, res = response) => {
   //const censo = new Censo(res.body);
@@ -111,6 +112,7 @@ const crear = async (req, res = response) => {
       {
         no_familia: jsonData.no_familia,
         comunidad: jsonData.comunidad,
+        sector: jsonData.sector,
         vivienda: vivienda.id,
         jefe_familia: jefeFamiliaId,
       },
@@ -213,6 +215,7 @@ const crear = async (req, res = response) => {
       {
         familia: familia.id,
         comunidad: jsonData.comunidad,
+        sector : jsonData.sector,
         gestion_ambiental: gestionAmbiental.id,
         registro: jsonData.usuario,
         fecha_registro: new Date(),
@@ -241,7 +244,15 @@ const getInformacion = async (req, res = response) => {
   try {
     const abastecimiento_agua = await AbastecimientoAgua.findAll();
     const ambiente = await Ambiente.findAll();
-    const comunidad = await Comunidad.findAll();
+    const comunidad = await Comunidad.findAll({
+      include: [
+        {
+          model: Sector,
+          as: 'Sector',
+          required: true
+        }
+      ]
+    });
     const disposicion_aguas_reciduale = await DisposicionAguasReciduales.findAll();
     const disposicion_desechos_solidos = await DisposicionDesechosSolidos.findAll();
     const disposicion_excretas = await DisposicionExcretas.findAll();
@@ -379,6 +390,7 @@ const sincronizar = async(boleta) =>{
       {
         no_familia: jsonData.no_familia,
         comunidad: jsonData.comunidad,
+        sector: jsonData.sector,
         vivienda: vivienda.id,
         jefe_familia: jefeFamiliaId,
       },
@@ -480,6 +492,7 @@ const sincronizar = async(boleta) =>{
       {
         familia: familia.id,
         comunidad: jsonData.comunidad,
+        sector: jsonData.sector,
         gestion_ambiental: gestionAmbiental.id,
         registro: jsonData.usuario,
         fecha_registro: new Date(),
