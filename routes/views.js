@@ -13,6 +13,7 @@ router.post('/auth', LoginController.auth);
 router.get('/logout', LoginController.logout);
 router.post('/ver_familas', dashboar.verFamilia);
 router.post('/ver_Datos_famila', dashboar.verDatosFamilia);
+router.get('/buscarSectores',dashboar.buscarSectores);
 
 router.get('/excelGestacion', generarExcel.excelGestacion)
 

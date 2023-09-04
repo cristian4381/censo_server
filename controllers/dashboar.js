@@ -29,6 +29,7 @@ const DisposicionDesechosSolidos = require("../models/disposicion_desechos_solid
 const Mascotas = require("../models/mascota");
 const TipoMascota = require("../models/tipo_mascota");
 const Embarazada = require("../models/embarazada");
+const Sector = require("../models/sector");
 
 
 const verDatos = async (req, res) => {
@@ -155,7 +156,8 @@ const verFamilia = async (req,res) =>{
       }
     ],
     where: {
-      comunidad: req.body.id_cuminidad
+      comunidad: req.body.id_cuminidad,
+      sector: req.body.id_sector
     },
     group: ['Familia.DetalleFamilia.familia','censo.id']
   });
@@ -343,11 +345,34 @@ const buscarFamilias = async (id) => {
   // Aquí tienes los resultados en `viviendas`, que incluyen los datos que necesitas.
 };
 
+const buscarSectores = async (req,res) => {
+  const noComunidad = req.query.comunidad;
+  console.log("NO. comunidad: "+noComunidad);
+  
+  try {
+    const sectores = await Sector.findAll({
+      where: {
+        comunidad: noComunidad,
+      },
+    }); 
+
+    console.log(sectores);
+  
+    res.json(sectores);
+  } catch (error) {
+    console.log('error: '+error);
+    res.json({
+      ok: 'false'
+    })
+  }
+}
+
 module.exports = {
   verDatos,
   ver_embarzadas,
   buscarEmabarazadas,
   buscarFamilia,
   verFamilia,
-  verDatosFamilia
+  verDatosFamilia,
+  buscarSectores
 };
