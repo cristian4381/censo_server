@@ -1,11 +1,17 @@
-const selectOption = document.getElementById('selectOption');
-async function buscarIformacion(){
-    //const selectOption = document.getElementById('selectOption');
-    const option = selectOption.value;
+const selectComunidad = document.getElementById('slc_comunidad');
+const selectSector = document.getElementById("slc_sector");
 
+selectComunidad.addEventListener("change", function() {
+  buscarSectores();
+});
+
+async function buscarIformacion(){
+    //const selectComunidad = document.getElementById('selectComunidad');
+    const idComunidad = selectComunidad.value;
+    const idSector = selectSector.value;
     
     try{
-        const url = `/buscar_embarzadas?comunidad=${encodeURIComponent(option)}`;
+        const url = `/buscar_embarzadas?comunidad=${encodeURIComponent(idComunidad)}&sector=${encodeURIComponent(idSector)}`;
 
         const responseData = await fetch(url);
         const data = await responseData.json();
@@ -37,8 +43,8 @@ async function buscarIformacion(){
 }
 
 document.getElementById('bt_excel').addEventListener('click', async () =>{
-    //const selectOption = document.getElementById('selectOption');
-    const option = selectOption.value;
+    //const selectComunidad = document.getElementById('selectComunidad');
+    const option = selectComunidad.value;
 
     try{
 
@@ -62,3 +68,29 @@ document.getElementById('bt_excel').addEventListener('click', async () =>{
         console.log(error)
     }
 });
+
+const buscarSectores = async () =>{
+    const option = selectComunidad.value;
+
+    selectSector.innerHTML = "";
+    try{
+      const responseData = await fetch(`/buscarSectores?comunidad=${encodeURIComponent(option)}`);
+      
+      if (!responseData.ok) throw { status: res.status, statusText: res.statusText };
+      
+      const data = await responseData.json();
+
+      for (const item of data) {
+        let opcion = document.createElement("option");
+        opcion.text = item.nombre
+        opcion.value = item.id;
+        selectSector.appendChild(opcion);
+      }
+
+    }catch (error){
+      console.log(error)
+    }
+
+  }
+
+  buscarSectores();

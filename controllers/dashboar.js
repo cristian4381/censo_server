@@ -54,8 +54,9 @@ const ver_embarzadas = async (req, res) => {
 
 const buscarEmabarazadas = async (req, res) => {
   const noComunidad = req.query.comunidad;
+  const noSector = req.query.sector;
   console.log("NO. comunidad: "+noComunidad);
-
+  console.log("NO. sector: "+noSector);
   try {
     const result = await Embarazada.findAll({
       include: [
@@ -75,6 +76,7 @@ const buscarEmabarazadas = async (req, res) => {
                   attributes: ['no_familia'],
                   where: {
                     comunidad: noComunidad,
+                    sector: noSector,
                   },
                   required: true,
                 },
