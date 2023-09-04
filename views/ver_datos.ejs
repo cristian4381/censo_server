@@ -9,10 +9,14 @@
       <div class="card-body" id="">
         <h4 class="card-title">Seleccione una comunidad </h4>
         <div class="form-group">
-          <select class="form-control bg-dark text-light" id="selectOption">
+          <select class="form-control bg-dark text-light" id="slc_comunidad">
             <% comunidades.forEach(comunidad => { %>
               <option value="<%= comunidad.id %>"><%= comunidad.nombre %></option>
             <% }); %>
+          </select>
+          <br/>
+          <h4 class="card-title">Seleccione un sector </h4>
+          <select class="form-control bg-dark text-light" id="slc_sector">
           </select>
         </div>
         <br>

@@ -1,9 +1,18 @@
+const selectComunidad = document.getElementById('slc_comunidad');
+const selectSector = document.getElementById("slc_sector");
+
+selectComunidad.addEventListener("change", function() {
+  buscarSectores();
+});
+
 async function enviarFormulario() {
-    const selectOption = document.getElementById('selectOption');
-    const option = selectOption.value;
+    
+    const option = selectComunidad.value;
+    const idSector = selectSector.value;
 
     const data = {
-      id_cuminidad : option
+      id_cuminidad : option,
+      id_sector: idSector
     };
 
 
@@ -176,5 +185,30 @@ async function enviarFormulario() {
     return `${día} ${nombresMeses[mes]} ${año} ${horas}:${minutos.toString().padStart(2, '0')}`;
   }
   
+  const buscarSectores = async () =>{
+    const option = selectComunidad.value;
+
+    selectSector.innerHTML = "";
+    try{
+      const responseData = await fetch(`/buscarSectores?comunidad=${encodeURIComponent(option)}`);
+      
+      if (!responseData.ok) throw { status: res.status, statusText: res.statusText };
+      
+      const data = await responseData.json();
+
+      for (const item of data) {
+        let opcion = document.createElement("option");
+        opcion.text = item.nombre
+        opcion.value = item.id;
+        selectSector.appendChild(opcion);
+      }
+
+    }catch (error){
+      console.log(error)
+    }
+
+  }
+
+  buscarSectores();
 
 const inicialMayuscula = (string) => string.charAt(0).toUpperCase() + string.slice(1);
