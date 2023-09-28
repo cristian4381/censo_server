@@ -347,6 +347,14 @@ const buscarFamilias = async (id) => {
   // Aquí tienes los resultados en `viviendas`, que incluyen los datos que necesitas.
 };
 
+const cambiarPassword = async (req, res) =>{
+  if (!req.session.loggedin) {
+    return res.redirect('/')
+  }
+
+  res.render("cambiar_password");
+
+}
 const buscarSectores = async (req,res) => {
   const noComunidad = req.query.comunidad;
   console.log("NO. comunidad: "+noComunidad);
@@ -376,5 +384,6 @@ module.exports = {
   buscarFamilia,
   verFamilia,
   verDatosFamilia,
-  buscarSectores
+  buscarSectores,
+  cambiarPassword
 };

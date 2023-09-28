@@ -7,6 +7,15 @@ const { Op } = require('sequelize');
 
 const index = async (req, res)=>{
     if (req.session.loggedin) {
+		console.log("\n\n EL USUARIO LOGUEADO ES: "+req.session.usuario.correo);
+		const usuario = req.session.usuario;
+
+		let cambiarContraseña = false;
+
+		if(usuario.rol === 1){
+			cambiarContraseña = true;
+		}
+		
 		const today = new Date(); // Obtiene la fecha actual
 		today.setHours(0, 0, 0, 0); // Establece la hora a las 00:00:00
 
@@ -34,7 +43,7 @@ const index = async (req, res)=>{
 		console.log(today);
 		const total = await Censo.count();
         // Output username
-        res.render("dashboard",{registrosSemana,registroDia,total});
+        res.render("dashboard",{registrosSemana,registroDia,total, cambiarContraseña});
     } else {
         res.render("login");
     }
@@ -76,7 +85,20 @@ const auth = async (req, res = response)=>{
 	        });
         }
 
-        req.session.loggedin = true;                
+		if(usuarioDB.rol==2){
+			return res.render('login', {
+		        alert: true,
+		        alertTitle: "Error",
+		        alertMessage: "Usuario sin acceso",
+		        alertIcon:'error',
+		        showConfirmButton: true,
+		        timer: false,
+		        ruta: ''    
+	        });
+		}
+
+        req.session.loggedin = true;
+		req.session.usuario = usuarioDB;                
 		    res.render('login', {
 		    	alert: true,
 		    	alertTitle: "Conexión exitosa",

@@ -54,12 +54,15 @@
                   Gestacion
                 </a>
               </li>
-              <!--<li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 text-light" 
-                href="buscar_familia">
-                  Buscar por familia
-                </a>
-              </li> -->
+              <% if( typeof cambiarContraseña!== 'undefined' && cambiarContraseña) {%>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2 text-light" 
+                  href="cambiar_password">
+                    Recuperar Contraseña
+                  </a>
+                </li>
+              <% } %>
+              
             </ul>
       
             <hr class="my-3">

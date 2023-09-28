@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 const { crearUsuario,login, renewToken } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
+const { recuperarPassword, cambiarPassword } = require('../controllers/password');
 
 const router = Router();
 
@@ -29,5 +30,14 @@ router.post('/',[
 
 //validarJWT
 router.get('/renew', validarJWT, renewToken );
+router.get('/recuperarPassword',recuperarPassword);
+
+
+router.post('/cambiarPassword',[
+    check('correo','El correo no es valido').isEmail().not().isEmpty(),
+    check('oldPassword','La contraseña actual es obligatoria').not().isEmpty(),
+    check('newPassword','La nueva contraseña es obligatoria').not().isEmpty(),
+    validarCampos
+],cambiarPassword)
 
 module.exports=router;
