@@ -72,10 +72,11 @@ const crear = async (req, res = response) => {
     
     //verificar si el jefe_Familia esta embarazada
     if(JSON.stringify(jsonData.jefe_familia.embarazada) != '{}'){
+
       await Embarazada.create(
         {
           persona: jefeFamilia.id,
-          meses_gestacion: jsonData.jefe_familia.embarazada.meses_gestacion,
+          tiempo_gestacion: jsonData.jefe_familia.embarazada.tiempo_gestacion,
           lleva_control: jsonData.jefe_familia.embarazada.lleva_control,
           lugar_control: jsonData.jefe_familia.embarazada.lugar_control,
           telefono: jsonData.jefe_familia.embarazada.telefono,
@@ -360,7 +361,7 @@ const sincronizar = async(boleta) =>{
       await Embarazada.create(
         {
           persona: jefeFamilia.id,
-          meses_gestacion: jsonData.jefe_familia.embarazada.meses_gestacion,
+          tiempo_gestacion: detalle.embarazada.tiempo_gestacion,
           lleva_control: jsonData.jefe_familia.embarazada.lleva_control,
           lugar_control: jsonData.jefe_familia.embarazada.lugar_control,
           telefono: jsonData.jefe_familia.embarazada.telefono,

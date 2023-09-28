@@ -16,7 +16,7 @@ const Embarazada = sequelize.define('embarazada', {
     }
   },
   tiempo_gestacion: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   lleva_control: {
     type: Sequelize.ENUM('Si', 'No')
